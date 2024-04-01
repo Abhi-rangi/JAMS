@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <style type="text/css">
+        @import url("Search_available.css");
+    </style>
+
+    <meta charset="utf-8">
+</head>
+
+<body>
+
+    <div class="navi">
+        JAMS
+    </div>
+
+    <div class="navi-category">
+        <div class="navi-cate">Search</div>
+        <div class="navi-cate">Reservation</div>
+    </div>
+
+    <form method="get" onsubmit="return search_avail()">
+        <div class="container">
+            <div class="container search">
+                <h1>Search for a vehicle</h1>
+                <br>
+                <label for="location">location</label><br>
+                <input type="text" id="location" name="location" required><br>
+                <br>
+
+                <label for="pick_date">Pick-up Date</label><br>
+                <input type="date" id="pick" name="pick" required><br>
+                <br>
+
+
+                <label for="dropoff_date">Drop-off Date</label><br>
+                <input type="date" id="d_date" name="d_date" required><br>
+                <br>
+                <input type="button" name="search" value="Search"><br>
+            </div>
+        </div>
+
+        <script>
+
+            function search_avail() {
+                const location = document.getElementById('location').value;
+                const pick = document.getElementById('pick').value;
+                const d_date = document.getElementById('d_date').value;
+                const search = document.getElementById('search').value;
+            }
+
+        </script>
+
+</body>
+
+</html>
