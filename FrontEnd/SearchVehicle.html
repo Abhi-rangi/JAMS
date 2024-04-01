@@ -21,7 +21,7 @@
         <div class="navi-cate">Reservation</div>
     </div>
 
-    <form method="get" onsubmit="return search_avail()">
+    <form method="get" onsubmit="search_avail()">
         <div class="container">
             <div class="container search">
                 <h1>Search for a vehicle</h1>
@@ -38,11 +38,29 @@
                 <label for="dropoff_date">Drop-off Date</label><br>
                 <input type="date" id="d_date" name="d_date" required><br>
                 <br>
-                <input type="button" name="search" value="Search"><br>
+                <input type="button" name="search" value="Search" onclick="search_avail()"><br>
             </div>
         </div>
+        <!-- Add this after your existing form -->
+        <div class="vehicle-results">
+            <table id="vehiclesTable">
+                <thead>
+                    <tr>
+                        <th>VIN</th>
+                        <th>Make</th>
+                        <th>Model</th>
+                        <th>Seating</th>
+                        <th>MPG</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Search results will be inserted here -->
+                </tbody>
+            </table>
+        </div>
 
-        <script>
+        <!-- <script>
 
             function search_avail() {
                 const location = document.getElementById('location').value;
@@ -51,6 +69,43 @@
                 const search = document.getElementById('search').value;
             }
 
+        </script> -->
+        <script>
+            function search_avail(event) {
+                // event.preventDefault(); // Prevent default form submission
+
+                const location = document.getElementById('location').value;
+                const pick = document.getElementById('pick').value;
+                const d_date = document.getElementById('d_date').value;
+
+                // Constructing a URL with query parameters
+                const url = `http://localhost:3000/vehicles`;
+                console.log(url);
+                // Use fetch API to get data from the server
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        const tableBody = document.getElementById('vehiclesTable').getElementsByTagName('tbody')[0];
+                        tableBody.innerHTML = ''; // Clear existing table rows
+                        data.forEach(vehicle => {
+                            let row = `<tr>
+                    <td>${vehicle.vin}</td>
+                    <td>${vehicle.make}</td>
+                    <td>${vehicle.model}</td>
+                    <td>${vehicle.seating}</td>
+                    <td>${vehicle.mpg}</td>
+                    <td>${vehicle.vtype}</td>
+                </tr>`;
+                            tableBody.innerHTML += row;
+                        });
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+
+                return false; // Prevent the form from submitting traditionally
+            }
+
+            // Attach the event listener to form submission
+            document.getElementById('searchForm').onsubmit = search_avail;
         </script>
 
 </body>
