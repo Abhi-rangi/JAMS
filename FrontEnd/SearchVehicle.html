@@ -1,54 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <style type="text/css">
         @import url("Search_available.css");
     </style>
-
     <meta charset="utf-8">
 </head>
-
 <body>
-
     <div class="navi">
         <h1>JAMS</h1>
     </div>
-
     <div class="navi-category">
         <div class="navi-cate">Search</div>
         <div class="navi-cate">Reservation</div>
     </div>
-
     <form method="get" onsubmit="search_avail()">
         <div class="container">
             <div class="container search">
-                <h1>Search for a vehicle</h1>
-                <br>
+                <h1>Search for a vehicle</h1><br>
                 <label for="location">location</label><br>
-                <input type="text" id="location" name="location" required><br>
-                <br>
-
+                <input type="text" id="location" name="location" required><br><br>
                 <label for="pick_date">Pick-up Date</label><br>
-                <input type="date" id="pick" name="pick" required><br>
-                <br>
-                
-
+                <input type="date" id="pick" name="pick" required><br><br>
                 <label for="dropoff_date">Drop-off Date</label><br>
-                <input type="date" id="d_date" name="d_date" required><br>
-                <br>
-
+                <input type="date" id="d_date" name="d_date" required><br><br>
                 <label for="vtype">Vehicle Type</label><br>
                 <select id="vtype" name="vtype">
-                    <!-- Options will be added here dynamically -->
-                </select><br>
-                <br>
-
+                </select><br><br>
                 <input type="button" name="search" value="Search" onclick="search_avail()"><br>
             </div>
         </div>
-        <!-- Add this after your existing form -->
         <div class="vehicle-results">
             <table id="vehiclesTable">
                 <thead>
@@ -62,62 +43,57 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Search results will be inserted here -->
                 </tbody>
             </table>
         </div>
-
         <script>
-
             document.addEventListener('DOMContentLoaded', function () {
-                    // Fetch vehicle types from the backend
-                    fetch('http://localhost:3000/vehicle-types')
-                        .then(response => response.json())
-                        .then(types => {
-                            const vtypeSelect = document.getElementById('vtype');
-
-                            // Create and add the default "Select" option
-                            const defaultOption = document.createElement('option');
-                            defaultOption.value = '';
-                            defaultOption.textContent = 'Select a Vehicle Type';
-                            defaultOption.disabled = true; // Make it non-selectable, if desired
-                            defaultOption.selected = true; // Make it the initially selected option
-                            vtypeSelect.appendChild(defaultOption);
-
-                            // Populate the dropdown with fetched vehicle types
-                            types.forEach(type => {
-                                const option = document.createElement('option');
-                                option.value = type.vtype;
-                                option.textContent = type.vtype;
-                                vtypeSelect.appendChild(option);
-                            });
-                        })
-                        .catch(error => console.error('Error fetching vehicle types:', error));
-                });
-
+                // Fetch vehicle types from the backend
+                fetch('http://localhost:3001/vehicle-types')
+                    .then(response => response.json())
+                    .then(types => {
+                        const vtypeSelect = document.getElementById('vtype');
+                        const defaultOption = document.createElement('option');
+                        defaultOption.value = '';
+                        defaultOption.textContent = 'Select a Vehicle Type';
+                        defaultOption.disabled = true; 
+                        defaultOption.selected = true; 
+                        vtypeSelect.appendChild(defaultOption);
+                        types.forEach(type => {
+                            const option = document.createElement('option');
+                            option.value = type.vtype;
+                            option.textContent = type.vtype;
+                            vtypeSelect.appendChild(option);
+                        });
+                    })
+                    .catch(error => console.error('Error fetching vehicle types:', error));
+            });
             function search_avail(event) {
-                // event.preventDefault(); // Prevent default form submission
-
-                const location = document.getElementById('location').value;
                 const pick = document.getElementById('pick').value;
                 const d_date = document.getElementById('d_date').value;
                 const vtype = document.getElementById('vtype').value;
                 console.log(vtype);
-                let url;
-                // Constructing a URL with query parameters
-                if(vtype!==''){
-                     url = `http://localhost:3000/vehicles/?vtype=${encodeURIComponent(vtype)}`;
+                let url= 'http://localhost:3001/vehicles';
+                const queryParams = [];
+                if (vtype.trim() !== '') {
+                    queryParams.push(`vtype=${encodeURIComponent(vtype)}`);
                 }
-                else{
-                     url = `http://localhost:3000/vehicles`;
+                if (pick.trim() !== '') {
+                    queryParams.push(`startDate=${encodeURIComponent(pick)}`);
                 }
-                console.log(url);
-                // Use fetch API to get data from the server
+                if (d_date.trim() !== '') {
+                    queryParams.push(`endDate=${encodeURIComponent(d_date)}`);
+                }
+
+                // Append query parameters to the URL if any exist
+                if (queryParams.length > 0) {
+                    url += `?${queryParams.join('&')}`;
+                }
                 fetch(url)
                     .then(response => response.json())
                     .then(data => {
                         const tableBody = document.getElementById('vehiclesTable').getElementsByTagName('tbody')[0];
-                        tableBody.innerHTML = ''; // Clear existing table rows
+                        tableBody.innerHTML = ''; 
                         data.forEach(vehicle => {
                             let row = `<tr>
                     <td>${vehicle.vin}</td>
@@ -131,14 +107,9 @@
                         });
                     })
                     .catch(error => console.error('Error fetching data:', error));
-
-                return false; // Prevent the form from submitting traditionally
+                return false;
             }
-
-            // Attach the event listener to form submission
             document.getElementById('searchForm').onsubmit = search_avail;
         </script>
-
 </body>
-
 </html>
