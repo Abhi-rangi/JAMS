@@ -8,9 +8,10 @@ type Menu = {
 };
 
 const MENU_LIST: Menu[] = [
+  {text:"Home", href:"/"},
   { text: "Search", href: "/search" },
   { text: "Search Reservation", href: "/reservation" },
-  { text: "Make Reservation", href: "/reservation"}
+  { text: "Make Reservation", href: "/makereservation"}
 ];
 
 const Navbar: React.FC = () => {

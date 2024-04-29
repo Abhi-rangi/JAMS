@@ -12,6 +12,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "types": ["jest"],
     "plugins": [
       {
         "name": "next"
@@ -23,6 +24,7 @@
   },
   "include": [
     "next-env.d.ts",
+    "**/*.js",
     "**/*.ts",
     "**/*.tsx",
     "**/*.jsx",
@@ -30,7 +32,9 @@
     "src/app/index.js",
     "src/app/components/VehicleTable.js",
     "src/app/components/SearchForm.js",
-    "src/app/components/Layout.js"
+    "src/app/components/Layout.js",
+    "__tests__/**/*",
+    "babel.config.tsx"
   ],
   "exclude": ["node_modules"]
 }

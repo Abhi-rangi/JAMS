@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { useState, FormEvent, ChangeEvent } from "react";
-import  "../styles/ReservationSearch.module.css";
+import "../styles/ReservationSearch.module.css";
+import router, { useRouter } from "next/router";
 type Reservation = {
   rid: string;
   lname: string;
@@ -31,9 +32,9 @@ export default function SearchReservation() {
     e.preventDefault();
     setIsLoading(true);
     fetch(
-      `http://localhost:3001/reservations?lastName=${encodeURIComponent(
+      `http://localhost:3001/reservations/?lastName=${encodeURIComponent(
         name
-      )}`
+      )}&date=${encodeURIComponent(date)}`
     )
       .then((response) => {
         if (!response.ok) {
@@ -54,12 +55,43 @@ export default function SearchReservation() {
 
   function handleModify(rid: string) {
     console.log("Modify reservation with ID:", rid);
-    // Here you might navigate to a modification page or open a modal
+    router.push({
+      pathname: "/modifyReservation",
+      query: { rid }, // This adds the rid as a query parameter
+    });
   }
 
   function handleDelete(rid: string) {
     console.log("Delete reservation with ID:", rid);
-    // Here you might confirm deletion and then call an API to delete the reservation
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this reservation?"
+    );
+     if (confirmDelete) {
+       // Here you might confirm deletion and then call an API to delete the reservation
+       fetch(`http://localhost:3001/reservations/${rid}`, {
+         method: "DELETE",
+       })
+         .then((response) => {
+           if (!response.ok) {
+             throw new Error("Failed to delete reservation");
+           }
+           return response.text(); // Assuming the response body is text
+         })
+         .then((data) => {
+           setReservations((prevReservations) =>
+             prevReservations.filter((reservation) => reservation.rid !== rid)
+           );
+           console.log("Reservation deleted successfully:", data);
+           // Optionally, you might update the UI to reflect the deletion
+         })
+         .catch((error) => {
+           console.error("Error deleting reservation:", error);
+           // Handle error
+         });
+     } else {
+       // User canceled, do nothing
+       console.log("Deletion canceled by user");
+     }
   }
 
   return (

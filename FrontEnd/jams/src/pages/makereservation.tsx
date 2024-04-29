@@ -19,20 +19,28 @@ export default function MakeReservation() {
     vin: "",
     startDate: "",
     endDate: "",
-
   });
 
   // Load vehicle details from local storage when the component mounts
   useEffect(() => {
     const storedVehicleDetails = localStorage.getItem("vehicleDetails");
+    const customer = localStorage.getItem("customer");
     if (storedVehicleDetails) {
       const { vin, vtype, startDate, endDate } = JSON.parse(storedVehicleDetails);
+      if(customer){
+        const { customerName, customerId } = JSON.parse(customer);
+        setFormValues((prevValues) => ({
+          ...prevValues,
+          customerName,
+          customerId,
+        }));
+      }
       setFormValues((prevValues) => ({
         ...prevValues,
         vtype,
         vin,
         startDate,
-        endDate
+        endDate,
       }));
     }
     // else{
@@ -50,7 +58,13 @@ export default function MakeReservation() {
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    console.log("Form Submitted with these values:", formValues);
+    const { startDate, endDate } = formValues;
+
+    // Validate start date is less than end date
+    if (new Date(startDate) >= new Date(endDate)) {
+      alert("End date must be greater than start date");
+      return; // Prevent form submission
+    }
     // Add API call or further processing here
     // Make POST request to server
     fetch("http://localhost:3001/reservations", {
@@ -71,6 +85,7 @@ export default function MakeReservation() {
          // Show success alert
          alert(message);
          localStorage.removeItem("vehicleDetails");
+         localStorage.removeItem("customer");
          router.push("/");
         // Handle success response
       })

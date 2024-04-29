@@ -43,6 +43,13 @@ export default function Search() {
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
     const query = new URLSearchParams(searchParams as any).toString();
+    const { startDate, endDate } = searchParams;
+
+    // Validate start date is less than end date
+    if (new Date(startDate) >= new Date(endDate)) {
+      alert("End date must be greater than start date");
+      return; // Prevent form submission
+    }
     fetch(`http://localhost:3001/vehicles?${query}`)
       .then((response) => response.json())
       .then((data) => {
@@ -72,7 +79,7 @@ export default function Search() {
    ) as HTMLInputElement;
 
    if (startDateElement && startDateElement.value) {
-     vehicle.startDate = startDateElement.value; 
+     vehicle.startDate = startDateElement.value;
    }
 
    if (endDateElement && endDateElement.value) {
@@ -80,7 +87,7 @@ export default function Search() {
    }
     selectVehicleForReservation(vehicle);
     router.push({
-      pathname: "/makereservation",
+      pathname: "/customer",
       query: vehicle,
     });
   }
