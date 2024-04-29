@@ -8,7 +8,8 @@ Here is an optimized version of your README file with clearer structure, step-by
 This guide provides instructions for setting up the backend and frontend components of the JAMS project, as well as connecting to the AWS RDS database.
 
 ### Prerequisites
-- Node.js installed
+- Node.js (v18.17.0) is used
+- npm (v9.6.7) is used
 - Access to AWS RDS
 
 ## Backend Setup
