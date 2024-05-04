@@ -145,6 +145,7 @@ function formatDateForInput(dateString: string): string {
               value={formValues.vtype}
               onChange={handleInputChange}
               required
+              readOnly
             />
             <br />
             <br />
@@ -156,6 +157,7 @@ function formatDateForInput(dateString: string): string {
               value={formValues.vin}
               onChange={handleInputChange}
               required
+              readOnly
             />
             <br />
             <br />

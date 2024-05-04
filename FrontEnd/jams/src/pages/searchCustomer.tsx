@@ -87,7 +87,7 @@ export default function SearchCustomer() {
             <button type="submit" value="Search">
               Search
             </button>
-            <hr />
+            <hr/>
             <button type="button" onClick={handleSignUp}>
               Sign Up New Customer
             </button>
@@ -132,6 +132,17 @@ export default function SearchCustomer() {
           </table>
         )}
       </div>
+      <style jsx>{`
+        hr {
+          border: 0; /* Remove the default border */
+          height: 1px; /* Set the height of the HR */
+          background-color: #ccc; /* Change the color of the HR */
+          margin: 20px 0; /* Add some space above and below the HR */
+          border-top: 8px double #999;
+          
+        }
+      `}</style>
+      ;
     </div>
   );
 }

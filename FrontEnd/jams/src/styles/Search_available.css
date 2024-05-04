@@ -144,7 +144,7 @@ nav {
 }
 
 .nav__link {
-    font-size: 18px;
+    font-size: 22px;
     position: relative;
     transition: all 0.2s;
 }
@@ -222,3 +222,19 @@ input[readOnly] {
     pointer-events: none;
     /* Prevents the field from receiving mouse events */
 }
+div {
+    margin-bottom: 10px;
+}
+
+label {
+    margin-right: 10px;
+}
+
+input {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    width: 200px;
+}
+
+
