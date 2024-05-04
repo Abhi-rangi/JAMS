@@ -42,6 +42,7 @@ export default function SearchCustomer() {
 
   function handleViewDetails(customer: Customer) {
     // Redirect to /search with customer details
+    localStorage.setItem("customer", JSON.stringify(customer));
     router.push({
       pathname: "/search",
       query: { customer: JSON.stringify(customer) },

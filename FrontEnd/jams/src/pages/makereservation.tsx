@@ -28,7 +28,9 @@ export default function MakeReservation() {
     if (storedVehicleDetails) {
       const { vin, vtype, startDate, endDate } = JSON.parse(storedVehicleDetails);
       if(customer){
-        const { customerName, customerId } = JSON.parse(customer);
+        const { lname, fname,cid } = JSON.parse(customer);
+        let customerName = fname+" "+lname;
+        let customerId=cid;
         setFormValues((prevValues) => ({
           ...prevValues,
           customerName,
@@ -113,6 +115,7 @@ export default function MakeReservation() {
                 value={formValues.customerName}
                 onChange={handleInputChange}
                 required
+                readOnly
               />
               <br />
               <br />
@@ -124,6 +127,7 @@ export default function MakeReservation() {
                 value={formValues.customerId}
                 onChange={handleInputChange}
                 required
+                readOnly
               />
               <br />
               <br />
@@ -135,6 +139,7 @@ export default function MakeReservation() {
                 value={formValues.vtype}
                 onChange={handleInputChange}
                 required
+                readOnly
               />
               <br />
               <br />
@@ -146,6 +151,7 @@ export default function MakeReservation() {
                 value={formValues.vin}
                 onChange={handleInputChange}
                 required
+                readOnly
               />
               <br />
               <br />
@@ -157,6 +163,7 @@ export default function MakeReservation() {
                 value={formValues.startDate}
                 onChange={handleInputChange}
                 required
+                readOnly
               />
               <br />
               <br />
@@ -168,6 +175,7 @@ export default function MakeReservation() {
                 value={formValues.endDate}
                 onChange={handleInputChange}
                 required
+                readOnly
               />
               <br />
               <br />

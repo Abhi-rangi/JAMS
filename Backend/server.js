@@ -164,8 +164,8 @@ app.post("/signup", (req, res) => {
       }
       res.status(201);
       let res_customer = { cid: customerId, lname: lname ,fname:fname,age:age,email:email,phone:phone};
-      res.json(res_customer);
       console.log(customerId);
+      res.json(res_customer);
     }
   );
 });

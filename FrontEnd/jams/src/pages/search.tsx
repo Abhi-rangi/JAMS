@@ -15,7 +15,14 @@ type Vehicle = {
   startDate?: string;
   endDate?: string;
 };
-
+type Customer = {
+  cid: string;
+  fname: string;
+  lname: string;
+  email: string;
+  phone: string;
+  age: number;
+};
 export default function Search() {
   const [vehicleTypes, setVehicleTypes] = useState<VehicleType[]>([]);
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
@@ -85,10 +92,15 @@ export default function Search() {
     if (endDateElement && endDateElement.value) {
       vehicle.endDate = endDateElement.value;
     }
+    let vin = vehicle.vin;
+    let vtype = vehicle.vtype;
+    let startDate = vehicle.startDate;
+    let endDate = vehicle.endDate;
+
     selectVehicleForReservation(vehicle);
     router.push({
-      pathname: "/customer",
-      query: vehicle,
+      pathname: "/makereservation",
+      query: {vin,vtype,startDate,endDate},
     });
   }
 

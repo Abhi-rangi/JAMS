@@ -47,7 +47,12 @@ const handleSubmit = async (e: React.FormEvent) => {
     alert("Sign up created successfully!");
   // console.log(response.json);
     localStorage.setItem("customer", JSON.stringify(result))
-    router.push("/makereservation");
+    // router.push("/search");
+
+     router.push({
+       pathname: "/search",
+       query: { customer: JSON.stringify(result) },
+     });
 
   } catch (error) {
     console.error("Error during sign up:", error);
