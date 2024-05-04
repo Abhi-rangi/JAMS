@@ -65,26 +65,26 @@ export default function Search() {
         setVehicles([]); // Reset vehicles on error
       });
   }
-  function selectVehicleForReservation(vehicle:Vehicle) {
+  function selectVehicleForReservation(vehicle: Vehicle) {
     localStorage.setItem("vehicleDetails", JSON.stringify(vehicle));
     // navigate to the reservation page
   }
   function handleMakeReservation(vehicle: Vehicle) {
     // Here you can navigate to a reservation page with the vehicle data
-   const startDateElement = document.getElementById(
-     "startDate"
-   ) as HTMLInputElement;
-   const endDateElement = document.getElementById(
-     "endDate"
-   ) as HTMLInputElement;
+    const startDateElement = document.getElementById(
+      "startDate"
+    ) as HTMLInputElement;
+    const endDateElement = document.getElementById(
+      "endDate"
+    ) as HTMLInputElement;
 
-   if (startDateElement && startDateElement.value) {
-     vehicle.startDate = startDateElement.value;
-   }
+    if (startDateElement && startDateElement.value) {
+      vehicle.startDate = startDateElement.value;
+    }
 
-   if (endDateElement && endDateElement.value) {
-     vehicle.endDate = endDateElement.value;
-   }
+    if (endDateElement && endDateElement.value) {
+      vehicle.endDate = endDateElement.value;
+    }
     selectVehicleForReservation(vehicle);
     router.push({
       pathname: "/customer",
@@ -92,6 +92,18 @@ export default function Search() {
     });
   }
 
+  const { customer } = router.query;
+  let customerDetails = {};
+  if (typeof customer === "string") {
+    try {
+      customerDetails = JSON.parse(decodeURIComponent(customer)) as {
+        [key: string]: any;
+      };
+    } catch (error) {
+      console.error("Error parsing customer details:", error);
+      // Handle parsing error (e.g., display an error message)
+    }
+  }
   return (
     <div>
       <Head>
@@ -102,9 +114,18 @@ export default function Search() {
         <div className="container">
           <div className="container search">
             <h1>Search for a vehicle</h1>
-            <br />
+            {customerDetails &&
+              Object.entries(customerDetails).map(([key, value]) => (
+                <div key={key}>
+                  <label>{key.charAt(0).toUpperCase() + key.slice(1)}:</label>
+                  <input
+                    type="text"
+                    value={value ? value.toString() : ""}
+                    readOnly
+                  />
+                </div>
+              ))}
             <label htmlFor="startDate">Pick-up Date</label>
-            <br />
             <input
               type="date"
               id="startDate"
@@ -115,7 +136,6 @@ export default function Search() {
             <br />
             <br />
             <label htmlFor="endDate">Drop-off Date</label>
-            <br />
             <input
               type="date"
               id="endDate"
@@ -126,7 +146,6 @@ export default function Search() {
             <br />
             <br />
             <label htmlFor="vtype">Vehicle Type</label>
-            <br />
             <select id="vtype" name="vtype" onChange={handleInputChange}>
               <option value="" disabled selected>
                 Select a Vehicle Type
@@ -139,7 +158,9 @@ export default function Search() {
             </select>
             <br />
             <br />
-            <input type="submit" value="Search" />
+            <button type="submit" value="Search">
+              Search
+            </button>
           </div>
         </div>
       </form>
@@ -175,6 +196,21 @@ export default function Search() {
           </tbody>
         </table>
       </div>
+      <style jsx>{`
+        div {
+          margin-bottom: 10px;
+        }
+        label {
+          margin-right: 10px;
+        }
+        input {
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          padding: 8px;
+          width: 200px;
+        }
+      `}</style>
+      ;
     </div>
   );
 }

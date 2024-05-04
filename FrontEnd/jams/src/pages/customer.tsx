@@ -7,15 +7,14 @@ export default function Customer() {
       <Head>
         <title>Welcome</title>
       </Head>
-   
       <div className="button-container">
-        <Link href="/makereservation" passHref>
+        <Link href="/searchCustomer" passHref>
           <button>Existing Customer</button>
         </Link>
         <Link href="/signup" passHref>
           <button>New Customer</button>
         </Link>
-       
+
       </div>
       <style jsx>{`
         .home-container {

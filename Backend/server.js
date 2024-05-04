@@ -238,6 +238,44 @@ app.get("/reservations/:rid", (req, res) => {
         res.status(200).json(results[0]);  // Send back the first (and should be only) result
     });
 });
+
+app.get("/customers", (req, res) => {
+  const { lname, cid } = req.query;
+  let sqlQuery;
+  let queryParams = [];
+
+  if (lname) {
+    // Query to find customers by last name
+    sqlQuery = `
+            SELECT cid,fname,lname,email,phone,age FROM customers
+            WHERE lname LIKE ?;
+        `;
+    queryParams.push(lname + "%");
+  } else if (cid) {
+    // Query to find customers by customer ID
+    sqlQuery = `
+            SELECT cid,fname,lname,email,phone,age FROM customers
+            WHERE cid = ?;
+        `;
+    queryParams.push(cid);
+  } else {
+    return res.status(400).json({ error: "No search parameters provided" });
+  }
+
+  // Execute the SQL query
+  db.query(sqlQuery, queryParams, (error, results) => {
+    if (error) {
+      console.error("Error fetching customer data:", error);
+      return res.status(500).send("Error fetching customer data");
+    }
+    if (results.length > 0) {
+      res.json(results); // Send the query results as JSON response
+    } else {
+      res.status(404).send("No customers found");
+    }
+  });
+});
+
 // Start the server
 if (process.env.NODE_ENV !== "test") {
   app.listen(port, () => {

@@ -61,7 +61,6 @@ const handleSubmit = async (e: React.FormEvent) => {
         <h1>Sign Up</h1>
         <form onSubmit={handleSubmit}>
           <label htmlFor="fname">First Name</label>
-          <br></br>
           <input
             name="fname"
             value={fname}
@@ -71,7 +70,6 @@ const handleSubmit = async (e: React.FormEvent) => {
           <br></br>
           <br></br>
           <label htmlFor="lname">Last Name</label>
-          <br></br>
           <input
             name="lname"
             value={lname}
@@ -81,7 +79,6 @@ const handleSubmit = async (e: React.FormEvent) => {
           <br></br>
           <br></br>
           <label htmlFor="email">Email</label>
-          <br></br>
           <input
             name="email"
             value={email}
@@ -91,7 +88,6 @@ const handleSubmit = async (e: React.FormEvent) => {
           <br></br>
           <br></br>
           <label htmlFor="age">Age</label>
-          <br></br>
           <input
             name="age"
             value={age}
@@ -101,7 +97,6 @@ const handleSubmit = async (e: React.FormEvent) => {
           <br></br>
           <br></br>
           <label htmlFor="phone">Phone</label>
-          <br></br>
           <input
             name="phone"
             value={phone}
@@ -111,7 +106,6 @@ const handleSubmit = async (e: React.FormEvent) => {
           <br></br>
           <br></br>
           <label htmlFor="streeet">Street</label>
-          <br></br>
           <input
             name="street"
             value={street}
@@ -121,7 +115,6 @@ const handleSubmit = async (e: React.FormEvent) => {
           <br></br>
           <br></br>
           <label htmlFor="city">City</label>
-          <br></br>
           <input
             name="city"
             value={city}
@@ -131,7 +124,6 @@ const handleSubmit = async (e: React.FormEvent) => {
           <br></br>
           <br></br>
           <label htmlFor="state">State</label>
-          <br></br>
           <input
             name="state"
             value={state}
@@ -141,7 +133,6 @@ const handleSubmit = async (e: React.FormEvent) => {
           <br></br>
           <br></br>
           <label htmlFor="zipcode">Zip Code</label>
-          <br></br>
           <input
             name="zipcode"
             value={zipcode}

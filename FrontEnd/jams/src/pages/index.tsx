@@ -9,7 +9,7 @@ export default function Home() {
       </Head>
       <h1>Welcome to Our Service</h1>
       <div className="button-container">
-        <Link href="/search" passHref>
+        <Link href="/customer" passHref>
           <button>Search</button>
         </Link>
         <Link href="/reservation" passHref>
