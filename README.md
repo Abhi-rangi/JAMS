@@ -5,7 +5,8 @@
 
 ## Overview
 This guide provides instructions for setting up the backend and frontend components of the JAMS project, as well as connecting to the AWS RDS database.
-
+## RECORDING LINK :
+https://tu-my.sharepoint.com/:v:/g/personal/arangi1_students_towson_edu/EQ19Bny7MtJOllqK_RpLdfcBvCiofWzH3Ugq4fju5K5rGw?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=CygaSF
 ### Prerequisites
 - Node.js (v18.17.0) is used
 - npm (v9.6.7) is used
