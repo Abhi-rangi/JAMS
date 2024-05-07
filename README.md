@@ -1,4 +1,3 @@
-Here is an optimized version of your README file with clearer structure, step-by-step instructions, and improved readability:
 
 ---
 
