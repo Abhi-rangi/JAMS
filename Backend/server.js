@@ -11,11 +11,11 @@ app.use(bodyParser.json());
 
 // Database connection
 const db = mysql.createConnection({
-  host: "jams.ctgcq8w46uhl.us-east-2.rds.amazonaws.com",
+  host: "******************************************",
   port: "3306",
-  user: "admin",
-  password: "SE_project_JAMS",
-  database: "JAMS",
+  user: "*********************",
+  password: "*********************",
+  database: "*********************",
 });
 
 db.connect((error) => {
